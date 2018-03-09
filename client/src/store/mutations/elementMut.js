@@ -8,7 +8,6 @@ const commonElementMutations = {
  * @param {object} payload.egglement : New egglement to save
  */
   [types.createEgglement]: function (state, payload) {
-    debugger
     payload.parent.children.push(payload.egglement)
   },
 
