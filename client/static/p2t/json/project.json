@@ -1,0 +1,61 @@
+{
+  "id": "SyC1pn1Ff",
+  "title": "Online Editor",
+  "components": [
+    
+  ],
+  "pages": [
+    {
+      "id": "rylCy63kFf",
+      "name": "Home",
+      "path": "/",
+      "width": "100%",
+      "height": "100%",
+      "pageCover": "testPageImg.jpg",
+      "pageThumb": "testPageImg-thumb.jpg",
+      "alignment": "align-left",
+      "styles": {
+        "--mdc-theme-primary": "#673ab7",
+        "--mdc-theme-secondary": "#f44336",
+        "--mdc-theme-background": "#ffffff",
+        "position": "relative",
+        "margin": "auto",
+        "background-color": "#ffffff",
+        "overflow": "hidden",
+        "background-size": "100%"
+      },
+      "classes": [
+        
+      ],
+      "children": [
+        
+      ]
+    },
+    {
+      "id": "ByWCy62JKz",
+      "name": "Test",
+      "path": "/",
+      "width": "100%",
+      "height": "100%",
+      "pageCover": "testPageImg.jpg",
+      "pageThumb": "testPageImg-thumb.jpg",
+      "alignment": "align-left",
+      "styles": {
+        "--mdc-theme-primary": "#673ab7",
+        "--mdc-theme-secondary": "#f44336",
+        "--mdc-theme-background": "#ffffff",
+        "position": "relative",
+        "margin": "auto",
+        "background-color": "#ffffff",
+        "overflow": "hidden",
+        "background-size": "100%"
+      },
+      "classes": [
+        
+      ],
+      "children": [
+        
+      ]
+    }
+  ]
+}
