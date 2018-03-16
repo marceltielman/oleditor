@@ -16,10 +16,10 @@
           </span>
 
           <div :class="page.classes" :style="{textAlign: pageIndex === 0 ? 'center' : page.alignment}">
-            <div>
+            <div class="page-thumb">
               <img :src="'/static/p2t/' + page.pageThumb" style="max-width: 50%;" />
             </div>
-            <span class="pages-list-item__title">{{page.name}}</span>
+            <span class="pages-list-item__title">{{page.displayPage}} {{page.order}}</span>
             <!--<span class="pages-list-item__subtitle" v-show="(page.id === activePage.id)" :title="page.path">{{page.path}}</span>-->
           </div>
 
@@ -28,7 +28,7 @@
               <svgicon icon="system/more_vert" width="24" height="24" @click.native="showOptsMenu(page)"></svgicon>
 
               <mdc-menu :ref="'menu-'+page.id" @select="(selected)=>onSelect(selected, pageIndex)">
-                <mdc-menu-item>Rename page</mdc-menu-item>
+                <mdc-menu-item>Add blank page</mdc-menu-item>
                 <mdc-menu-item>Duplicate page</mdc-menu-item>
                 <mdc-menu-divider></mdc-menu-divider>
                 <mdc-menu-item :disabled="(projectPages.length === 1)">Delete page</mdc-menu-item>
@@ -42,7 +42,7 @@
     <mdc-fab class="new-page-btn" v-if="false" @click="_togglePageDialog({isOpen: true, isNew: true})">
       <svgicon icon="system/add_page" width="24" height="24"></svgicon>
     </mdc-fab>
-    <mdc-fab class="new-page-btn" @click="_addBlankPage">
+    <mdc-fab class="new-page-btn" v-if="false" @click="_addBlankPage">
       <svgicon icon="system/add_page" width="24" height="24"></svgicon>
     </mdc-fab>
   </div>
@@ -78,13 +78,14 @@ export default {
     },
 
     onSelect (selected, pageIndex) {
-      const EDIT = 0
+      const ADDBLANK = 0
       const DUPLICATE = 1
       const DELETE = 2
 
       switch (selected.index) {
-        case EDIT:
-          this._togglePageDialog({isOpen: true, isNew: false})
+        case ADDBLANK:
+          // this._togglePageDialog({isOpen: true, isNew: false})
+          this.addBlankPage({page: this.activePage})
           break
         case DUPLICATE:
           this._clearSelectedElements()
@@ -185,6 +186,10 @@ export default {
   .pages-list-item__title {
     color: rgba(0,0,0,.38);
   }
+
+.blank-page .page-thumb > img {
+  border: 1px solid #eee;
+}
 
 .pages-list__item:hover .pages-list-item__title,
 .pages-list-item__subtitle {

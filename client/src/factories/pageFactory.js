@@ -1,10 +1,11 @@
 import shortid from 'shortid'
 
-function newPage (name, path, alignment, height, width, cover, thumb, order, deleted) {
+function newPage (name, path, alignment, order, displayPage, height, width, cover, thumb, deleted) {
   return {
     id: shortid.generate(),
     name: name,
     path: path,
+    displayPage: displayPage || 'Pagina ',
     alignment: alignment || 'left',
     width: width || '100%',
     height: height || '100%',

@@ -86,16 +86,20 @@ const pageActions = {
  * @see {@link [types._updateComponentRef]}
  */
   [types.addBlankPage]: function ({ getters, commit }, payload) {
-    debugger
-    const activePageIndex = getters.getPageIndexById(payload.page.id) + 1
+    const activePageIndex = getters.getPageIndexById(payload.page.id)
+    const newBlankPageIndex = activePageIndex + 1
     const copyId = shortid.generate()
     const extGlobCompList = getExtGlobComps(payload.page)
 
     let blankPage = {
       ...setElId(payload.page),
-      name: 'Pagina ' + (activePageIndex + 1),
+      name: 'Pagina ' + (newBlankPageIndex + 1),
+      order: payload.page.order + 1,
       path: payload.page.path + copyId,
-      classes: ['blank-page']
+      pageCover: 'blankpage.jpg',
+      pageThumb: 'blankpage-thumb.jpg',
+      classes: ['blank-page'],
+      alignment: activePageIndex === 0 ? 'left' : payload.page.alignment === 'left' ? 'right' : 'left'
     }
 
     if (extGlobCompList.length > 0) {
@@ -111,7 +115,7 @@ const pageActions = {
       }
     }
 
-    commit(types.createBlankPage, { blankPage, activePageIndex })
+    commit(types.createBlankPage, { blankPage, newBlankPageIndex })
     commit(types._changeActivePage, blankPage)
   },
 
