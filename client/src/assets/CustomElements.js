@@ -6,15 +6,19 @@ const customElements = [
   // Custom Element
   {
     'name': 'div',
-    'displayName': 'test el',
+    'displayName': 'kader',
     'type': 'div',
-    'text': 'custom kadertje',
+    'text': '',
     'egglement': true,
     'containegg': true,
     'width': 100,
     'height': 100,
     'attrs': {
       'hidden': false
+    },
+    'body': {
+      'link': '',
+      'title': ''
     },
     'classes': {},
     'styles': {
@@ -28,10 +32,10 @@ const customElements = [
   },
   // Custom Element No Resizable
   {
-    'name': 'div',
-    'displayName': 'drag noresize',
+    'name': 'link',
+    'displayName': 'Link',
     'type': 'div',
-    'text': 'kan niet resizen',
+    'text': '',
     'egglement': true,
     'containegg': true,
     'global': true,
@@ -39,6 +43,10 @@ const customElements = [
     'height': 50,
     'attrs': {
       'hidden': false
+    },
+    'body': {
+      'link': '',
+      'title': ''
     },
     'classes': {},
     'styles': {

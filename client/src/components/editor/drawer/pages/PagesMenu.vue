@@ -6,7 +6,7 @@
            @click="changePageIfNeeded(page)"
         >
         <li v-tooltip.right="{content: page.name, delay: 0}" class="pages-list__item">
-          <span class="pages-list-item__start-detail">
+          <span class="pages-list-item__start-detail" style="display: none">
             <svgicon v-if="pageIndex === 0" icon="system/home" width="24" height="24"
               :color="(page.id === activePage.id)?'rgba(0,0,0,.87)':'rgba(0,0,0,.54)'">
             </svgicon>
@@ -15,10 +15,12 @@
             </svgicon>
           </span>
 
-          <div>
-            <img :src="'/static/p2t/' + page.pageThumb" style="max-width: 100%;" />
+          <div :class="page.classes" :style="{textAlign: pageIndex === 0 ? 'center' : page.alignment}">
+            <div>
+              <img :src="'/static/p2t/' + page.pageThumb" style="max-width: 50%;" />
+            </div>
             <span class="pages-list-item__title">{{page.name}}</span>
-            <span class="pages-list-item__subtitle" v-show="(page.id === activePage.id)" :title="page.path">{{page.path}}</span>
+            <!--<span class="pages-list-item__subtitle" v-show="(page.id === activePage.id)" :title="page.path">{{page.path}}</span>-->
           </div>
 
           <span class="pages-list-item__end-detail">
@@ -37,7 +39,10 @@
       </div>
     </ul>
 
-    <mdc-fab class="new-page-btn" @click="_togglePageDialog({isOpen: true, isNew: true})">
+    <mdc-fab class="new-page-btn" v-if="false" @click="_togglePageDialog({isOpen: true, isNew: true})">
+      <svgicon icon="system/add_page" width="24" height="24"></svgicon>
+    </mdc-fab>
+    <mdc-fab class="new-page-btn" @click="_addBlankPage">
       <svgicon icon="system/add_page" width="24" height="24"></svgicon>
     </mdc-fab>
   </div>
@@ -46,7 +51,7 @@
 
 <script>
 import { mapState, mapActions, mapMutations } from 'vuex'
-import { duplicatePage, removePage, _changeActivePage, _togglePageDialog, _clearSelectedElements } from '@/store/types'
+import { addBlankPage, duplicatePage, removePage, _changeActivePage, _togglePageDialog, _clearSelectedElements } from '@/store/types'
 
 import '@/assets/icons/system/home'
 import '@/assets/icons/system/page'
@@ -92,8 +97,11 @@ export default {
           break
       }
     },
+    _addBlankPage () {
+      this.addBlankPage({page: this.activePage})
+    },
 
-    ...mapActions([duplicatePage, removePage]),
+    ...mapActions([addBlankPage, duplicatePage, removePage]),
     ...mapMutations([_clearSelectedElements, _togglePageDialog, _changeActivePage])
   }
 }
@@ -162,6 +170,10 @@ export default {
     display: block;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+  .pages-list-item__title {
+    display: inline-block;
+    width: auto;
   }
   .pages-list-item__subtitle {
     font-size: 0.76rem;

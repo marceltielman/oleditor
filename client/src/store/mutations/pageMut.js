@@ -11,6 +11,15 @@ const commonPageMutations = {
   },
 
 /**
+ * Adds the passed page to the state.project.pages array
+ *
+ * @param {object} page : New blank page to save active page index + 1, blank page
+ */
+  [types.createBlankPage]: function (state, page) {
+    state.project.pages.splice(page.activePageIndex, 0, page.blankPage)
+  },
+
+/**
  * Updates the page under the specify index with the new passed values
  *
  * @param {number} payload.page : Page to update

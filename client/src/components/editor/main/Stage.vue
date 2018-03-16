@@ -18,7 +18,7 @@
     @undo="$root.$emit('undo')"
     @redo="$root.$emit('redo')"
   >
-    <stage-action v-show="checkActive"></stage-action>
+
     <stage-el
       v-for="element in page.children"
       :key="element.id"
@@ -34,17 +34,16 @@ import cloneDeep from 'clone-deep'
 import elementsFromPoint from '@/polyfills/elementsFromPoint'
 import { getComputedProp, fixElementToParentBounds } from '@/helpers/positionDimension'
 
-import { mapState, mapActions, mapMutations, mapGetters } from 'vuex'
+import { mapState, mapActions, mapMutations } from 'vuex'
 import { _clearSelectedElements, _addSelectedElements, registerElement,
-        removeElement, resizeElement, moveElement, rebaseSelectedElements, getSelectedElIndexById } from '@/store/types'
+        removeElement, resizeElement, moveElement, rebaseSelectedElements } from '@/store/types'
 
 import MrContainer from '@/components/editor/common/mr-vue/MrContainer'
 import StageEl from './StageEl'
-import StageAction from './StageAction'
 
 export default {
   name: 'stage',
-  components: { StageEl, MrContainer, StageAction },
+  components: { StageEl, MrContainer },
   props: ['page'],
   data: function () {
     return {
@@ -60,16 +59,11 @@ export default {
         backgroundImage: 'url("/static/p2t/' + this.page.pageCover + '")'
       }
     },
-    checkActive () {
-      if (this.selectedElements.length > 0) {
-        return (this.selectedElements.findIndex(el => el.id) === this.getSelectedElIndexById('SJx2MgxlKf.ryQtFHSFG')) // 'SJx2MgxlKf.HkloVZSYM'
-      }
-    },
+
     ...mapState({
       selectedElements: state => state.app.selectedElements || [],
       projectComponents: state => state.project.components
-    }),
-    ...mapGetters([getSelectedElIndexById])
+    })
   },
   methods: {
     clearSelectionHandler () {
@@ -265,9 +259,5 @@ html.droppable * {
     0 2px 2px 0 rgba(0, 0, 0, 0.14),
     0 1px 5px 0 rgba(0, 0, 0, 0.12),
     0 3px 1px -2px rgba(0, 0, 0, 0.2);
-}
-.bg-white {
-  background-color: white;
-  padding: 10px;
 }
 </style>

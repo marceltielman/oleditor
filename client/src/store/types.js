@@ -36,6 +36,7 @@ export const clearProject = 'clearProject'
 export const savePageAndClose = 'savePageAndClose'
 export const duplicatePage = 'duplicatePage'
 export const removePage = 'removePage'
+export const addBlankPage = 'addBlankPage'
 
 export const registerElement = 'registerElement'
 export const resizeElement = 'resizeElement'
@@ -43,6 +44,8 @@ export const moveElement = 'moveElement'
 export const changeElementParent = 'changeElementParent'
 export const removeElement = 'removeElement'
 export const rebaseSelectedElements = 'rebaseSelectedElements'
+
+export const actionSelectedElement = 'actionSelectedElement'
 
 // MUTATIONS
 export const addProject = 'addProject'
@@ -52,6 +55,7 @@ export const deleteProject = 'deleteProject'
 export const createPage = 'createPage'
 export const updatePage = 'updatePage'
 export const deletePage = 'deletePage'
+export const createBlankPage = 'createBlankPage'
 
 export const createEgglement = 'createEgglement'
 export const updateEgglement = 'updateEgglement'
@@ -114,6 +118,7 @@ const types = {
   savePageAndClose,
   duplicatePage,
   removePage,
+  addBlankPage,
 
   registerElement,
   resizeElement,
@@ -121,6 +126,8 @@ const types = {
   changeElementParent,
   removeElement,
   rebaseSelectedElements,
+
+  actionSelectedElement,
 
 // MUTATIONS
   addProject,
@@ -130,6 +137,7 @@ const types = {
   createPage,
   updatePage,
   deletePage,
+  createBlankPage,
 
   createEgglement,
   updateEgglement,

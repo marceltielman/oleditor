@@ -215,6 +215,27 @@ const elementActions = {
     let freshElements = state.app.selectedElements.map(el => getChildNode(state.app.selectedPage, el.id))
     commit(types._clearSelectedElements)
     freshElements.map(el => commit(types._addSelectedElement, el))
+  },
+
+/**
+  * Updates the element {link, title} identified by payload.elId with the payload values
+  *
+  * @param {string} payload.pageId : Id of the page where the element reside
+  * @param {string} payload.link : Link of the element to be updated
+  *
+  * @see {@link [types.updateEgglement]}
+  */
+  [types.actionSelectedElement]: function ({ getters, commit }, payload) {
+    let page = getters.getPageById(payload.pageId)
+    let egglement = getChildNode(page, payload.elId)
+
+    if (payload.link !== egglement.link || payload.title !== egglement.title) {
+      commit(types.updateEgglement, {
+        egglement,
+        link: (egglement.link !== payload.link) ? payload.link : egglement.link,
+        title: (egglement.title !== payload.title) ? payload.title : egglement.title
+      })
+    }
   }
 }
 

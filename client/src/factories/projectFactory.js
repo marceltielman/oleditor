@@ -6,7 +6,12 @@ function newProject (title) {
     id: shortid.generate(),
     title: title,
     components: [],
-    pages: [newPage('Home', '/'), newPage('Test', '/')]
+    pages: [
+      newPage('Pagina 1', '/'),
+      newPage('Pagina 2', '/', 'left'),
+      newPage('Pagina 3', '/', 'right'),
+      newPage('Pagina 4', '/', 'left')
+    ]
   }
 }
 

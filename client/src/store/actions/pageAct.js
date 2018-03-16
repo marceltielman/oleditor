@@ -75,6 +75,47 @@ const pageActions = {
   },
 
 /**
+ * Creates a new blank page provided on the payload
+ * and changes the active page afterwards.
+ *
+ * @param {string} payload.page : The page that will be duplicated
+ *
+ * @see {@link [types.createBlankPage]}
+ * @see {@link [types._changeActivePage]}
+ * @see {@link [types._saveComponentRef]}
+ * @see {@link [types._updateComponentRef]}
+ */
+  [types.addBlankPage]: function ({ getters, commit }, payload) {
+    debugger
+    const activePageIndex = getters.getPageIndexById(payload.page.id) + 1
+    const copyId = shortid.generate()
+    const extGlobCompList = getExtGlobComps(payload.page)
+
+    let blankPage = {
+      ...setElId(payload.page),
+      name: 'Pagina ' + (activePageIndex + 1),
+      path: payload.page.path + copyId,
+      classes: ['blank-page']
+    }
+
+    if (extGlobCompList.length > 0) {
+      for (let comp of extGlobCompList) {
+        if (!getters.componentExist(comp.name)) {
+          let componentRef = compRef(payload.el)
+          commit(types._saveComponentRef, setElId(componentRef))
+        } else {
+          let compIndex = getters.getComponentRefIndexByName(comp.name)
+          let newCount = getters.getComponentRefByIndex(compIndex).usageCount + 1
+          commit(types._updateComponentRef, {compIndex, newCount})
+        }
+      }
+    }
+
+    commit(types.createBlankPage, { blankPage, activePageIndex })
+    commit(types._changeActivePage, blankPage)
+  },
+
+/**
  * Creates a new copy of the page provided on the payload
  * and changes the active page afterwards.
  *
