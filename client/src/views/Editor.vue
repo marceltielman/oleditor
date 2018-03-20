@@ -14,6 +14,7 @@
       <load-dialog></load-dialog>
       <upload-dialog></upload-dialog>
       <confirm-dialog></confirm-dialog>
+      <pages-grid-dialog></pages-grid-dialog>
 
       <block-loader></block-loader>
       <mdc-snackbar :dismisses-on-action="false"/>
@@ -33,10 +34,11 @@ import PageDialog from '@/components/editor/dialogs/PageDialog'
 import LoadDialog from '@/components/editor/dialogs/LoadDialog'
 import UploadDialog from '@/components/editor/dialogs/UploadDialog'
 import ConfirmDialog from '@/components/editor/dialogs/ConfirmDialog'
+import PagesGridDialog from '@/components/editor/dialogs/PagesGridDialog'
 
 export default {
   name: 'editor',
-  components: { Headegg, Drawegg, Mainegg, BlockLoader, PageDialog, LoadDialog, UploadDialog, ConfirmDialog },
+  components: { Headegg, Drawegg, Mainegg, BlockLoader, PageDialog, LoadDialog, UploadDialog, ConfirmDialog, PagesGridDialog },
   data: function () {
     return {
       notScrolled: true

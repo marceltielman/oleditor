@@ -98,6 +98,7 @@ const pageActions = {
       path: payload.page.path + copyId,
       pageCover: 'blankpage.jpg',
       pageThumb: 'blankpage-thumb.jpg',
+      blankPage: true,
       classes: ['blank-page'],
       alignment: activePageIndex === 0 ? 'left' : payload.page.alignment === 'left' ? 'right' : 'left'
     }
@@ -119,6 +120,19 @@ const pageActions = {
     commit(types._changeActivePage, blankPage)
   },
 
+/**
+ * Reorder pages list provided on the payload
+ * and changes the active page afterwards.
+ *
+ * @param {string} payload.page : The page that will be duplicated
+ *
+ * @see {@link [types.deletePage]}
+ * @see {@link [types._updateComponentRef]}
+ * @see {@link [types._removeComponentRef]}
+ */
+  [types.setNewPagesOrder]: function ({ state, getters, commit }, payload) {
+    commit(types.reorderPages, payload)
+  },
 /**
  * Creates a new copy of the page provided on the payload
  * and changes the active page afterwards.

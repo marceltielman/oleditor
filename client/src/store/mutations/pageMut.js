@@ -43,6 +43,26 @@ const commonPageMutations = {
   },
 
 /**
+ * Updates the page under the specify index with the new passed values
+ *
+ * @param {number} payload.page : Page to update
+ * @param {string|null} [payload.name] : New page's name
+ * @param {string|null} [payload.path] : New page's path
+ * @param {number|string|null} [payload.height] : New page's height
+ * @param {number|string|null} [payload.width] : New page's width
+ * @param {object|null} [payload.styles] : New page's styles
+ */
+  [types.reorderPages]: function (state, payload) {
+    // move the item in the underlying array
+    // this.list.splice(newIndex, 0, this.list.splice(oldIndex, 1)[0])
+    // payload.forEach(el => {
+    //   console.log(el)
+    //   state.project.pages.push(el)
+    // })
+    state.project.pages = payload
+  },
+
+/**
  * Removes the page under the specified index from the state.project.pages array
  *
  * @param {number} pageIndex : Page's index
@@ -85,6 +105,17 @@ const internalPageMutations = {
  */
   [types._rebaseActivePage]: function (state, pageIndex) {
     state.project.pages.splice(pageIndex, 1, state.app.selectedPage)
+  },
+
+/**
+ * Changes the Pages Grid Dialog state to the passed value
+ *
+ * @param {boolean} payload.isOpen : Status of the PageDialog
+ * @param {boolean} payload.isNew : Dialog mode (New/Edit)
+ */
+  [types._togglePagesGridDialog]: function (state, payload) {
+    state.app.pagesGridDialog.isNew = payload.isNew
+    state.app.pagesGridDialog.isOpen = payload.isOpen
   }
 }
 

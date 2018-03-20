@@ -3,6 +3,8 @@ import VueSVGIcon from 'vue-svgicon'
 import VueMDCAdapter from 'vue-mdc-adapter'
 import Tooltip from 'vue-directive-tooltip'
 
+import Grid from 'vue-js-grid'
+
 import localforage from 'localforage'
 
 import App from './App'
@@ -19,6 +21,7 @@ localforage.config({ name: 'vuegg' })
 
 Vue.use(VueSVGIcon)
 Vue.use(VueMDCAdapter)
+Vue.use(Grid)
 Vue.use(Tooltip, {
   class: 'tooltip-vuegg',
   placement: 'bottom',

@@ -43,5 +43,9 @@
     "dotenv": "^4.0.0",
     "inquirer": "^5.1.0",
     "shelljs": "^0.8.1"
+  },
+  "dependencies": {
+    "vue-js-grid": "^1.0.1",
+    "vuedraggable": "^2.16.0"
   }
 }

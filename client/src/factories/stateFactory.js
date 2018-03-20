@@ -13,6 +13,10 @@ function newState (project) {
         isNew: true,
         isOpen: false
       },
+      pagesGridDialog: {
+        isNew: true,
+        isOpen: false
+      },
       selectedPage: null,
       selectedElements: []
     },

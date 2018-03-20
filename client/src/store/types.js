@@ -38,6 +38,8 @@ export const duplicatePage = 'duplicatePage'
 export const removePage = 'removePage'
 export const addBlankPage = 'addBlankPage'
 
+export const setNewPagesOrder = 'setNewPagesOrder'
+
 export const registerElement = 'registerElement'
 export const resizeElement = 'resizeElement'
 export const moveElement = 'moveElement'
@@ -56,6 +58,8 @@ export const createPage = 'createPage'
 export const updatePage = 'updatePage'
 export const deletePage = 'deletePage'
 export const createBlankPage = 'createBlankPage'
+
+export const reorderPages = 'reorderPages'
 
 export const createEgglement = 'createEgglement'
 export const updateEgglement = 'updateEgglement'
@@ -76,6 +80,8 @@ export const _toggleCanUndo = '_toggleCanUndo'
 export const _togglePageDialog = '_togglePageDialog'
 export const _changeActivePage = '_changeActivePage'
 export const _rebaseActivePage = '_rebaseActivePage'
+
+export const _togglePagesGridDialog = '_togglePagesGridDialog'
 
 export const _clearSelectedElements = '_clearSelectedElements'
 export const _addSelectedElements = '_addSelectedElements'
@@ -120,6 +126,8 @@ const types = {
   removePage,
   addBlankPage,
 
+  setNewPagesOrder,
+
   registerElement,
   resizeElement,
   moveElement,
@@ -138,6 +146,8 @@ const types = {
   updatePage,
   deletePage,
   createBlankPage,
+
+  reorderPages,
 
   createEgglement,
   updateEgglement,
@@ -158,6 +168,8 @@ const types = {
   _togglePageDialog,
   _changeActivePage,
   _rebaseActivePage,
+
+  _togglePagesGridDialog,
 
   _clearSelectedElements,
   _addSelectedElements,

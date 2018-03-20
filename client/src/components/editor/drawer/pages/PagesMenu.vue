@@ -19,7 +19,7 @@
             <div class="page-thumb">
               <img :src="'/static/p2t/' + page.pageThumb" style="max-width: 50%;" />
             </div>
-            <span class="pages-list-item__title">{{page.displayPage}} {{page.order}}</span>
+            <span class="pages-list-item__title">{{ page.id }}</span>
             <!--<span class="pages-list-item__subtitle" v-show="(page.id === activePage.id)" :title="page.path">{{page.path}}</span>-->
           </div>
 
@@ -45,13 +45,17 @@
     <mdc-fab class="new-page-btn" v-if="false" @click="_addBlankPage">
       <svgicon icon="system/add_page" width="24" height="24"></svgicon>
     </mdc-fab>
+    <mdc-fab class="new-page-btn" @click="_togglePagesGridDialog({isOpen: true, isNew: true})">
+      <svgicon icon="system/elements/mdcCard" width="24" height="24"></svgicon>
+    </mdc-fab>
   </div>
 </template>
 
 
 <script>
+// import _ from 'lodash'
 import { mapState, mapActions, mapMutations } from 'vuex'
-import { addBlankPage, duplicatePage, removePage, _changeActivePage, _togglePageDialog, _clearSelectedElements } from '@/store/types'
+import { addBlankPage, duplicatePage, removePage, _changeActivePage, _togglePageDialog, _clearSelectedElements, _togglePagesGridDialog } from '@/store/types'
 
 import '@/assets/icons/system/home'
 import '@/assets/icons/system/page'
@@ -62,6 +66,7 @@ export default {
   name: 'pages-menu',
   computed: mapState({
     activePage: state => state.app.selectedPage || { id: 0 },
+    // projectPages: state => state ? _.orderBy(state.project.pages, 'order') : []
     projectPages: state => state ? state.project.pages : []
   }),
   methods: {
@@ -103,7 +108,7 @@ export default {
     },
 
     ...mapActions([addBlankPage, duplicatePage, removePage]),
-    ...mapMutations([_clearSelectedElements, _togglePageDialog, _changeActivePage])
+    ...mapMutations([_clearSelectedElements, _togglePageDialog, _changeActivePage, _togglePagesGridDialog])
   }
 }
 </script>
