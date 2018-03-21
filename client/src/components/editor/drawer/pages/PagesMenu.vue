@@ -1,8 +1,8 @@
 <template>
   <div id="pages-menu">
     <ul class="pages-list">
-      <div v-for="(page, pageIndex) in projectPages" :key="page.id"
-           :class="{active: (page.id === activePage.id)}"
+      <div v-for="(page, pageIndex) in projectPages" :key="page.id" class="pages-list-page"
+           :class="{active: (page.id === activePage.id), 'first-page' : pageIndex === 0, 'last-page' : pageIndex === (projectPages.length - 1)}"
            @click="changePageIfNeeded(page)"
         >
         <li v-tooltip.right="{content: page.name, delay: 0}" class="pages-list__item">
@@ -15,9 +15,9 @@
             </svgicon>
           </span>
 
-          <div :class="page.classes" :style="{textAlign: pageIndex === 0 ? 'center' : page.alignment}">
+          <div class="page-thumb-holder" :class="page.classes" :style="{textAlign: pageIndex === 0 ? 'center' : page.alignment}">
             <div class="page-thumb">
-              <img :src="'/static/p2t/' + page.pageThumb" style="max-width: 50%;" />
+              <img :src="'/static/p2t/' + page.pageThumb" />
             </div>
             <span class="pages-list-item__title">{{ page.id }}</span>
             <!--<span class="pages-list-item__subtitle" v-show="(page.id === activePage.id)" :title="page.path">{{page.path}}</span>-->
@@ -136,12 +136,21 @@ export default {
   letter-spacing: 0.04em;
   line-height: 1.75rem;
   list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .active {
   background-color: #fff;
 }
-
+.pages-list-page.first-page {
+  flex: 0 0 100%;
+  max-width: 100%;
+}
+.pages-list-page {
+  flex: 0 0 50%;
+  max-width: 50%;
+}
 .pages-list__item {
   padding: 4px 16px;
   overflow: inherit;
@@ -153,6 +162,12 @@ export default {
   align-items: center;
   justify-content: flex-start;
   min-height: 48px;
+}
+.page-thumb-holder {
+  flex-grow: 1;
+}
+.pages-list__item .page-thumb img {
+  height: 100px;
 }
   .pages-list-item__start-detail {
     width: 24px;

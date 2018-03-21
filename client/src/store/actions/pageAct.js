@@ -126,13 +126,26 @@ const pageActions = {
  *
  * @param {string} payload.page : The page that will be duplicated
  *
- * @see {@link [types.deletePage]}
- * @see {@link [types._updateComponentRef]}
- * @see {@link [types._removeComponentRef]}
+ * TODO:
+ * - update page order then commit
  */
-  [types.setNewPagesOrder]: function ({ state, getters, commit }, payload) {
+  [types.setNewPagesOrder]: function ({ state, commit }, payload) {
     commit(types.reorderPages, payload)
   },
+
+/**
+ * center last page of document list provided on the payload
+ * and changes the active page afterwards.
+ *
+ * @param {boolean} payload : Center the last page
+ *
+ * TODO:
+ * - update page order then commit
+ */
+  [types.centerLastPage]: function ({ state, commit }, payload) {
+    commit(types.rebaseCenteredPages, { last: payload, all: false })
+  },
+
 /**
  * Creates a new copy of the page provided on the payload
  * and changes the active page afterwards.

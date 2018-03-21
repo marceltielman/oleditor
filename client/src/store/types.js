@@ -40,6 +40,8 @@ export const addBlankPage = 'addBlankPage'
 
 export const setNewPagesOrder = 'setNewPagesOrder'
 
+export const centerLastPage = 'centerLastPage'
+
 export const registerElement = 'registerElement'
 export const resizeElement = 'resizeElement'
 export const moveElement = 'moveElement'
@@ -60,6 +62,7 @@ export const deletePage = 'deletePage'
 export const createBlankPage = 'createBlankPage'
 
 export const reorderPages = 'reorderPages'
+export const rebaseCenteredPages = 'rebaseCenteredPages'
 
 export const createEgglement = 'createEgglement'
 export const updateEgglement = 'updateEgglement'
@@ -128,6 +131,8 @@ const types = {
 
   setNewPagesOrder,
 
+  centerLastPage,
+
   registerElement,
   resizeElement,
   moveElement,
@@ -148,6 +153,7 @@ const types = {
   createBlankPage,
 
   reorderPages,
+  rebaseCenteredPages,
 
   createEgglement,
   updateEgglement,

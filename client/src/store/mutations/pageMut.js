@@ -69,6 +69,29 @@ const commonPageMutations = {
  */
   [types.deletePage]: function (state, pageIndex) {
     state.project.pages.splice(pageIndex, 1)
+  },
+
+/**
+ * Rebase pages under the specified index from the state.project.pages array
+ *
+ * @param {number} pageIndex : Page's index
+ */
+  [types.rebaseCenteredPages]: function (state, payload) {
+    state.project.lastpageCentered = payload.last
+    const lastPageIndex = state.project.pages.length - 1
+    if (payload.last) {
+      state.project.pages[lastPageIndex].alignment = 'center'
+    } else {
+      state.project.pages.forEach((page, index) => {
+        if (index === 0) {
+          page.alignment = 'center'
+        } else if ((index % 2) !== 1) {
+          page.alignment = 'right'
+        } else {
+          page.alignment = 'left'
+        }
+      })
+    }
   }
 }
 

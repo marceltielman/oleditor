@@ -24,7 +24,6 @@
       </grid> -->
       <draggable class="sort-pages" v-model="pagesList" :options="{group:'order'}" @start="drag=true" @end="drag=false">
         <div v-for="page in pagesList" :key="page.id" class="sort-pages-item" @click="onSelectPage(page)">
-          {{page.name}}
           <div class="v-grid-item-thumb" :class=" { isBlankPage: page.blankPage} " :style="{'background-image': 'url(/static/p2t/' + page.pageThumb + ')', width: '56px', height: '100px'}">
           </div>
           <p>
@@ -35,14 +34,14 @@
       </draggable>
     </div>
     <div class="page-dialog__actions">
-      <mdc-button @click="savePageAndClose({id, name, path})" :disabled="!valid">Save</mdc-button>
-      <mdc-button @click="_togglePagesGridDialog({isOpen: false, isNew: pagesGridDialog.isNew})">Cancel</mdc-button>
+      <mdc-button @click="_togglePagesGridDialog({isOpen: false, isNew: pagesGridDialog.isNew})">Sluiten</mdc-button>
     </div>
   </dialog>
 </template>
 
 
 <script>
+// import _ from 'lodash'
 import draggable from 'vuedraggable'
 import { mapState, mapGetters, mapActions, mapMutations } from 'vuex'
 import { pathInUse, nameInUse, savePageAndClose, _togglePageDialog, _togglePagesGridDialog, _clearSelectedElements, _changeActivePage, setNewPagesOrder, reorderPages } from '@/store/types'
@@ -78,6 +77,7 @@ export default {
     ...mapState({
       activePage: state => state.app.selectedPage,
       pagesGridDialog: state => state ? state.app.pagesGridDialog : {isNew: true, isOpen: false},
+      // projectPages: state => state ? _.orderBy(state.project.pages, 'order') : []
       projectPages: state => state ? state.project.pages : []
     }),
 

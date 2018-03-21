@@ -6,6 +6,8 @@ function newProject (title) {
     id: shortid.generate(),
     title: title,
     components: [],
+    centered: false,
+    lastpageCentered: false,
     pages: [
       newPage('Pagina 1', '/', 'center', 1, 'Pagina', 'autoreviewpages/1.png', 'autoreviewpages/1-thumb.png'),
       newPage('Pagina 2', '/', 'left', 2, 'Pagina', 'autoreviewpages/2.png', 'autoreviewpages/2-thumb.png'),

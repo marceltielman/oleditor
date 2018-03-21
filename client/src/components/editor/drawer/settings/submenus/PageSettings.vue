@@ -1,11 +1,12 @@
 <template>
 <div>
-  <menu-toggle menuHeader="General">
-    <dim-pos :height="h" :width="w" :hasPos="false"
+  <menu-toggle menuHeader="Document Instellingen">
+    <!-- <dim-pos :height="h" :width="w" :hasPos="false"
       @change="({type, value}) => emitChanges(type, value)">
-    </dim-pos>
-
-    <div class="menu">
+    </dim-pos> -->
+    <mdc-checkbox  :label="lastPageLabel" v-model="lastPageChecked" @change="onlastPageCheckedChange" />
+    <mdc-checkbox  :label="allPagesLabel" v-model="allPagesChecked"/>
+    <!-- <div class="menu">
       <slider label="Opacity"
         icon="system/editor/opacity"
         min="0" max="1"
@@ -18,10 +19,10 @@
         :color="sty['background-color']"
         @input="newColor => onStyleChanges('background-color', newColor)">
       </color-picker>
-    </div>
+    </div> -->
   </menu-toggle>
 
-  <menu-toggle menuHeader="Material theme">
+  <!-- <menu-toggle menuHeader="Material theme" v-show="false">
     <div class="menu">
       <material-theme :primary="sty['--mdc-theme-primary']"
         :secondary="sty['--mdc-theme-secondary']"
@@ -29,7 +30,7 @@
         @change="changeData => onStyleChanges(changeData.prop, changeData.value)">
       </material-theme>
     </div>
-  </menu-toggle>
+  </menu-toggle> -->
 </div>
 
 </template>
@@ -37,6 +38,9 @@
 
 <script>
 import cloneDeep from 'clone-deep'
+
+import { mapState, mapActions } from 'vuex'
+import { centerLastPage } from '@/store/types'
 
 import Slider from './controls/Slider'
 import ColorPicker from './controls/ColorPicker'
@@ -48,11 +52,21 @@ export default {
   name: 'page-settings',
   components: { Slider, ColorPicker, MaterialTheme, MenuToggle, DimPos },
   props: ['height', 'width', 'styles'],
+  computed: mapState({
+    lastPageCentered: state => state ? state.project.lastpageCentered : false,
+    allPagesCentered: state => state ? state.project.centered : false
+  }),
   data: function () {
     return {
       h: this.height,
       w: this.width,
-      sty: cloneDeep(this.styles)
+      sty: cloneDeep(this.styles),
+
+      lastPageLabel: 'Laatste pagina centreren',
+      lastPageChecked: this.lastPageCentered,
+
+      allPagesLabel: 'Alle paginas centreren',
+      allPagesChecked: this.allPagesCentered
     }
   },
   watch: {
@@ -65,10 +79,13 @@ export default {
       this.sty[prop] = value
       this.emitChanges('styles', this.sty)
     },
-
+    onlastPageCheckedChange (val) {
+      this.centerLastPage(val)
+    },
     emitChanges (type, value) {
       this.$emit('propchange', {type, value})
-    }
+    },
+    ...mapActions([centerLastPage])
   }
 }
 </script>
