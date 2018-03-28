@@ -4,7 +4,7 @@
     <!-- <dim-pos :height="h" :width="w" :hasPos="false"
       @change="({type, value}) => emitChanges(type, value)">
     </dim-pos> -->
-    <mdc-checkbox  :label="lastPageLabel" v-model="lastPageChecked" @change="onlastPageCheckedChange" />
+    <mdc-checkbox  :label="lastPageLabel" v-model="lastPageChecked" /> <!-- @change="onlastPageCheckedChange" -->
     <mdc-checkbox  :label="allPagesLabel" v-model="allPagesChecked"/>
     <!-- <div class="menu">
       <slider label="Opacity"
@@ -39,7 +39,7 @@
 <script>
 import cloneDeep from 'clone-deep'
 
-import { mapState, mapActions } from 'vuex'
+import { mapActions } from 'vuex'
 import { centerLastPage } from '@/store/types'
 
 import Slider from './controls/Slider'
@@ -52,10 +52,24 @@ export default {
   name: 'page-settings',
   components: { Slider, ColorPicker, MaterialTheme, MenuToggle, DimPos },
   props: ['height', 'width', 'styles'],
-  computed: mapState({
-    lastPageCentered: state => state ? state.project.lastpageCentered : false,
-    allPagesCentered: state => state ? state.project.centered : false
-  }),
+  computed: {
+    lastPageChecked: {
+      get () {
+        return this.$store.state.project.lastpageCentered
+      },
+      set (value) {
+        this.centerLastPage(value)
+      }
+    },
+    allPagesChecked: {
+      get () {
+        return this.$store.state.project.centered
+      },
+      set (value) {
+        this.centerLastPage(value)
+      }
+    }
+  },
   data: function () {
     return {
       h: this.height,
@@ -63,10 +77,8 @@ export default {
       sty: cloneDeep(this.styles),
 
       lastPageLabel: 'Laatste pagina centreren',
-      lastPageChecked: this.lastPageCentered,
 
-      allPagesLabel: 'Alle paginas centreren',
-      allPagesChecked: this.allPagesCentered
+      allPagesLabel: 'Alle paginas centreren'
     }
   },
   watch: {
