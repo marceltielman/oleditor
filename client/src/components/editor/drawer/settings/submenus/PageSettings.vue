@@ -40,7 +40,7 @@
 import cloneDeep from 'clone-deep'
 
 import { mapActions } from 'vuex'
-import { centerLastPage } from '@/store/types'
+import { centerLastPage, centerAllPages } from '@/store/types'
 
 import Slider from './controls/Slider'
 import ColorPicker from './controls/ColorPicker'
@@ -66,7 +66,7 @@ export default {
         return this.$store.state.project.centered
       },
       set (value) {
-        this.centerLastPage(value)
+        this.centerAllPages(value)
       }
     }
   },
@@ -91,13 +91,10 @@ export default {
       this.sty[prop] = value
       this.emitChanges('styles', this.sty)
     },
-    onlastPageCheckedChange (val) {
-      this.centerLastPage(val)
-    },
     emitChanges (type, value) {
       this.$emit('propchange', {type, value})
     },
-    ...mapActions([centerLastPage])
+    ...mapActions([centerLastPage, centerAllPages])
   }
 }
 </script>

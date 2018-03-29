@@ -17,6 +17,10 @@ function newState (project) {
         isNew: true,
         isOpen: false
       },
+      linkOverviewDialog: {
+        isNew: true,
+        isOpen: false
+      },
       selectedPage: null,
       selectedElements: []
     },

@@ -143,7 +143,19 @@ const pageActions = {
  * - update page order then commit
  */
   [types.centerLastPage]: function ({ state, commit }, payload) {
-    commit(types.rebaseCenteredPages, { last: payload, all: false })
+    commit(types.rebaseCenteredLastPage, payload)
+  },
+
+/**
+ * center all pages of document list provided on the payload
+ *
+ * @param {boolean} payload : Center all pages arg
+ *
+ * TODO:
+ * - update page order then commit
+ */
+  [types.centerAllPages]: function ({ state, commit }, payload) {
+    commit(types.rebaseCenteredPages, payload)
   },
 
 /**

@@ -16,10 +16,8 @@
       </svgicon>
     </mdc-button>
 
-    <mdc-button v-tooltip="'Preview'" class="action-btn" dense>
-      <router-link to="preview">
-        <svgicon icon="system/actions/preview" width="24" height="24" color="#2b6a73"></svgicon>
-      </router-link>
+    <mdc-button v-tooltip="'Link overzicht'" class="action-btn" dense @click="_toggleLinkOverviewDialog({isOpen: true, isNew: true})">
+      <svgicon icon="system/elements/link" width="24" height="24" color="#2b6a73"></svgicon>
     </mdc-button>
 
     <div class="separator"></div>
@@ -76,8 +74,8 @@
 
 
 <script>
-import { mapState, mapActions } from 'vuex'
-import { downloadProject, downloadVueSources, loadVueggProject } from '@/store/types'
+import { mapState, mapActions, mapMutations } from 'vuex'
+import { downloadProject, downloadVueSources, loadVueggProject, _toggleLinkOverviewDialog } from '@/store/types'
 
 import '@/assets/icons/system/actions'
 
@@ -146,7 +144,8 @@ export default {
       reader.readAsText(file)
     },
 
-    ...mapActions([downloadProject, downloadVueSources, loadVueggProject])
+    ...mapActions([downloadProject, downloadVueSources, loadVueggProject]),
+    ...mapMutations([_toggleLinkOverviewDialog])
   }
 }
 </script>

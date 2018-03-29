@@ -72,15 +72,40 @@ const commonPageMutations = {
   },
 
 /**
+ * Rebase last page under the specified index from the state.project.pages array
+ *
+ * @param {number} pageIndex : Page's index
+ */
+  [types.rebaseCenteredLastPage]: function (state, payload) {
+    state.project.lastpageCentered = payload
+    const lastPageIndex = state.project.pages.length - 1
+    if (payload) {
+      state.project.pages[lastPageIndex].alignment = 'center'
+    } else if (!state.project.centered) {
+      state.project.pages.forEach((page, index) => {
+        if (index === 0) {
+          page.alignment = 'center'
+        } else if ((index % 2) !== 1) {
+          page.alignment = 'right'
+        } else {
+          page.alignment = 'left'
+        }
+      })
+    }
+  },
+
+/**
  * Rebase pages under the specified index from the state.project.pages array
  *
  * @param {number} pageIndex : Page's index
  */
   [types.rebaseCenteredPages]: function (state, payload) {
-    state.project.lastpageCentered = payload.last
     const lastPageIndex = state.project.pages.length - 1
-    if (payload.last) {
-      state.project.pages[lastPageIndex].alignment = 'center'
+    state.project.centered = payload
+    if (payload) {
+      state.project.pages.forEach((page, index) => {
+        page.alignment = 'center'
+      })
     } else {
       state.project.pages.forEach((page, index) => {
         if (index === 0) {
@@ -89,6 +114,11 @@ const commonPageMutations = {
           page.alignment = 'right'
         } else {
           page.alignment = 'left'
+        }
+        if (state.project.lastpageCentered) {
+          if (index === lastPageIndex) {
+            page.alignment = 'center'
+          }
         }
       })
     }
@@ -139,6 +169,16 @@ const internalPageMutations = {
   [types._togglePagesGridDialog]: function (state, payload) {
     state.app.pagesGridDialog.isNew = payload.isNew
     state.app.pagesGridDialog.isOpen = payload.isOpen
+  },
+/**
+ * Changes the Pages Grid Dialog state to the passed value
+ *
+ * @param {boolean} payload.isOpen : Status of the PageDialog
+ * @param {boolean} payload.isNew : Dialog mode (New/Edit)
+ */
+  [types._toggleLinkOverviewDialog]: function (state, payload) {
+    state.app.linkOverviewDialog.isNew = payload.isNew
+    state.app.linkOverviewDialog.isOpen = payload.isOpen
   }
 }
 

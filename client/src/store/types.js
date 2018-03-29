@@ -41,6 +41,7 @@ export const addBlankPage = 'addBlankPage'
 export const setNewPagesOrder = 'setNewPagesOrder'
 
 export const centerLastPage = 'centerLastPage'
+export const centerAllPages = 'centerAllPages'
 
 export const registerElement = 'registerElement'
 export const resizeElement = 'resizeElement'
@@ -63,6 +64,7 @@ export const createBlankPage = 'createBlankPage'
 
 export const reorderPages = 'reorderPages'
 export const rebaseCenteredPages = 'rebaseCenteredPages'
+export const rebaseCenteredLastPage = 'rebaseCenteredLastPage'
 
 export const createEgglement = 'createEgglement'
 export const updateEgglement = 'updateEgglement'
@@ -85,6 +87,7 @@ export const _changeActivePage = '_changeActivePage'
 export const _rebaseActivePage = '_rebaseActivePage'
 
 export const _togglePagesGridDialog = '_togglePagesGridDialog'
+export const _toggleLinkOverviewDialog = '_toggleLinkOverviewDialog'
 
 export const _clearSelectedElements = '_clearSelectedElements'
 export const _addSelectedElements = '_addSelectedElements'
@@ -132,6 +135,7 @@ const types = {
   setNewPagesOrder,
 
   centerLastPage,
+  centerAllPages,
 
   registerElement,
   resizeElement,
@@ -154,6 +158,7 @@ const types = {
 
   reorderPages,
   rebaseCenteredPages,
+  rebaseCenteredLastPage,
 
   createEgglement,
   updateEgglement,
@@ -176,6 +181,7 @@ const types = {
   _rebaseActivePage,
 
   _togglePagesGridDialog,
+  _toggleLinkOverviewDialog,
 
   _clearSelectedElements,
   _addSelectedElements,

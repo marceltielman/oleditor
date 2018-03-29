@@ -2,7 +2,7 @@
   <div id="pages-menu">
     <ul class="pages-list">
       <div v-for="(page, pageIndex) in projectPages" :key="page.id" class="pages-list-page"
-           :class="{active: (page.id === activePage.id), 'first-page' : pageIndex === 0, 'last-page' : pageIndex === (projectPages.length - 1)}"
+           :class="{active: (page.id === activePage.id), 'first-page' : pageIndex === 0, 'last-page' : pageIndex === (projectPages.length - 1), 'page-centered': page.alignment === 'center'}"
            @click="changePageIfNeeded(page)"
         >
         <li v-tooltip.right="{content: page.name, delay: 0}" class="pages-list__item">
@@ -28,8 +28,8 @@
               <svgicon icon="system/more_vert" width="24" height="24" @click.native="showOptsMenu(page)"></svgicon>
 
               <mdc-menu :ref="'menu-'+page.id" @select="(selected)=>onSelect(selected, pageIndex)">
-                <mdc-menu-item>Add blank page</mdc-menu-item>
-                <mdc-menu-item>Duplicate page</mdc-menu-item>
+                <mdc-menu-item v-show="!allPagesCentered">Add blank page</mdc-menu-item>
+                <mdc-menu-item v-show="false">Duplicate page</mdc-menu-item>
                 <mdc-menu-divider></mdc-menu-divider>
                 <mdc-menu-item :disabled="(projectPages.length === 1)">Delete page</mdc-menu-item>
               </mdc-menu>
@@ -67,7 +67,8 @@ export default {
   computed: mapState({
     activePage: state => state.app.selectedPage || { id: 0 },
     // projectPages: state => state ? _.orderBy(state.project.pages, 'order') : []
-    projectPages: state => state ? state.project.pages : []
+    projectPages: state => state ? state.project.pages : [],
+    allPagesCentered: state => state ? state.project.centered : false
   }),
   methods: {
     changePageIfNeeded (page) {
@@ -143,7 +144,8 @@ export default {
 .active {
   background-color: #fff;
 }
-.pages-list-page.first-page {
+.pages-list-page.first-page,
+.pages-list-page.page-centered {
   flex: 0 0 100%;
   max-width: 100%;
 }
