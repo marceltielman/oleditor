@@ -17,8 +17,10 @@
         </mdc-layout-cell>
       </mdc-layout-grid>
       <mdc-layout-grid v-for="(page, pageIndex) in projectPages" :key="page.id" >
-        <mdc-layout-cell span=12>
-          Pagina {{ pageIndex + 1 }}
+        <mdc-layout-cell span=12 v-show="page.children.length">
+          <span @click="onSelectPage(page)">
+            Pagina {{ pageIndex + 1 }}
+          </span>
           <mdc-layout-inner-grid  v-for="(children, childrenIndex) in page.children" :key="children.id">
             <mdc-layout-cell span=3>
               <p>Url {{childrenIndex}}</p>
@@ -46,8 +48,8 @@
 <script>
 // import _ from 'lodash'
 import draggable from 'vuedraggable'
-import { mapState, mapGetters, mapActions, mapMutations } from 'vuex'
-import { pathInUse, nameInUse, savePageAndClose, _togglePagesGridDialog, _toggleLinkOverviewDialog, _clearSelectedElements, _changeActivePage, setNewPagesOrder, reorderPages } from '@/store/types'
+import { mapState, mapMutations } from 'vuex'
+import { _toggleLinkOverviewDialog, _clearSelectedElements, _changeActivePage } from '@/store/types'
 
 export default {
   name: 'link-overview-dialog',
@@ -68,35 +70,23 @@ export default {
     dialogTitle () {
       return 'Link overzicht'
     },
-    pagesList: {
-      get () {
-        return this.projectPages
-      },
-      set (value) {
-        this.setNewPagesOrder(value)
-      }
-    },
 
     ...mapState({
       activePage: state => state.app.selectedPage,
       linkOverviewDialog: state => state ? state.app.linkOverviewDialog : {isNew: true, isOpen: false},
       // projectPages: state => state ? _.orderBy(state.project.pages, 'order') : []
       projectPages: state => state ? state.project.pages : []
-    }),
-
-    ...mapGetters([pathInUse, nameInUse])
+    })
   },
   methods: {
     onSelectPage (page) {
-      console.log(page)
       if (page.id !== this.activePage.id) {
         this._clearSelectedElements()
         this._changeActivePage(page)
       }
     },
 
-    ...mapActions([savePageAndClose, setNewPagesOrder]),
-    ...mapMutations([_togglePagesGridDialog, _toggleLinkOverviewDialog, _clearSelectedElements, _changeActivePage, reorderPages])
+    ...mapMutations([_toggleLinkOverviewDialog, _clearSelectedElements, _changeActivePage])
   },
   watch: {
     'linkOverviewDialog.isOpen': function (val) {
