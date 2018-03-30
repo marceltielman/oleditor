@@ -52,6 +52,8 @@ export const rebaseSelectedElements = 'rebaseSelectedElements'
 
 export const actionSelectedElement = 'actionSelectedElement'
 
+export const updateLinkOverviewElement = 'updateLinkOverviewElement'
+
 // MUTATIONS
 export const addProject = 'addProject'
 export const updateProject = 'updateProject'
@@ -145,6 +147,8 @@ const types = {
   rebaseSelectedElements,
 
   actionSelectedElement,
+
+  updateLinkOverviewElement,
 
 // MUTATIONS
   addProject,

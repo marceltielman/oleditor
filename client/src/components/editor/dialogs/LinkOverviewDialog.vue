@@ -3,36 +3,38 @@
     <p class="page-dialog__title" :title="dialogTitle">{{dialogTitle}}</p>
     <div class="page-dialog__content">
       <mdc-layout-grid>
-        <mdc-layout-cell span=3>
+        <mdc-layout-cell span=4>
           Url
         </mdc-layout-cell>
-        <mdc-layout-cell span=3>
+        <mdc-layout-cell span=4>
           Titel
         </mdc-layout-cell>
-        <mdc-layout-cell span=3>
+        <mdc-layout-cell span=2>
           Type
         </mdc-layout-cell>
-        <mdc-layout-cell span=3>
+        <mdc-layout-cell span=2>
           Verwijderen
         </mdc-layout-cell>
       </mdc-layout-grid>
       <mdc-layout-grid v-for="(page, pageIndex) in projectPages" :key="page.id" >
         <mdc-layout-cell span=12 v-show="page.children.length">
-          <span @click="onSelectPage(page)">
-            Pagina {{ pageIndex + 1 }}
-          </span>
-          <mdc-layout-inner-grid  v-for="(children, childrenIndex) in page.children" :key="children.id">
-            <mdc-layout-cell span=3>
-              <p>Url {{childrenIndex}}</p>
+          <h3 @click="onSelectPage(page)" class="page-heading pointer">
+            <svgicon icon="system/elements/page" width="24" height="24" color="#2b6a73"></svgicon> Pagina {{ pageIndex + 1 }}
+          </h3>
+          <mdc-layout-inner-grid  v-for="(element, elementIndex) in page.children" :key="element.id">
+            <mdc-layout-cell span=4 align="middle">
+              <mdc-textfield :value="element.body.link" dense label="Url" @input="updateUrl({elId: element.id, pageId: page.id, link: $event.target.value} )" />
             </mdc-layout-cell>
-            <mdc-layout-cell span=3>
-              <p>Titel</p>
+            <mdc-layout-cell span=4 align="middle">
+              <mdc-textfield :value="element.body.title" dense label="Title" @input="updateTitle({elId: element.id, pageId: page.id, title: $event.target.value} )" />
             </mdc-layout-cell>
-            <mdc-layout-cell span=3>
-              <p>Type</p>
+            <mdc-layout-cell span=2 align="bottom">
+              <svgicon :icon="'system/elements/'+element.name" width="24" height="24" color="rgba(0,0,0,.87)"></svgicon>
             </mdc-layout-cell>
-            <mdc-layout-cell span=3>
-              <svgicon icon="system/actions/delete" width="24" height="24" color="#2b6a73"></svgicon>
+            <mdc-layout-cell span=2 align="bottom">
+              <mdc-button class="action-btn" :disabled="isLoading" @click="deleteElementHandler(page, element.id)">
+                <svgicon icon="system/actions/delete" width="24" height="24" color="#2b6a73"></svgicon>
+              </mdc-button>
             </mdc-layout-cell>
           </mdc-layout-inner-grid>
         </mdc-layout-cell>
@@ -46,16 +48,12 @@
 
 
 <script>
-// import _ from 'lodash'
-import draggable from 'vuedraggable'
-import { mapState, mapMutations } from 'vuex'
-import { _toggleLinkOverviewDialog, _clearSelectedElements, _changeActivePage } from '@/store/types'
+import _ from 'lodash'
+import { mapState, mapActions, mapMutations } from 'vuex'
+import { updateLinkOverviewElement, removeElement, _toggleLinkOverviewDialog, _clearSelectedElements, _changeActivePage } from '@/store/types'
 
 export default {
   name: 'link-overview-dialog',
-  components: {
-    draggable
-  },
   data: function () {
     return {
       valid: false,
@@ -72,6 +70,7 @@ export default {
     },
 
     ...mapState({
+      isLoading: state => state.app.isLoading,
       activePage: state => state.app.selectedPage,
       linkOverviewDialog: state => state ? state.app.linkOverviewDialog : {isNew: true, isOpen: false},
       // projectPages: state => state ? _.orderBy(state.project.pages, 'order') : []
@@ -85,7 +84,17 @@ export default {
         this._changeActivePage(page)
       }
     },
+    deleteElementHandler (page, elId) {
+      this.removeElement({ page: page, elId: elId })
+    },
+    updateUrl: _.debounce(function (payload) {
+      this.updateLinkOverviewElement({data: payload, type: 'link'})
+    }, 500),
+    updateTitle: _.debounce(function (payload) {
+      this.updateLinkOverviewElement({data: payload, type: 'title'})
+    }, 500),
 
+    ...mapActions([removeElement, updateLinkOverviewElement]),
     ...mapMutations([_toggleLinkOverviewDialog, _clearSelectedElements, _changeActivePage])
   },
   watch: {
@@ -139,23 +148,6 @@ dialog {
   border: 1px solid #eee;
 }
 
-.v-grid-item-dragging .v-grid-item-thumb {
-  /* animation-name: shake;
-  animation-duration: 0.2s;
-  animation-iteration-count: infinite;
-  animation-direction: alternate; */
-  transform: scale(1.1);
-  opacity: .5;
-}
-@keyframes shake {
-  from {
-    transform: rotate(-4deg);
-  },
-  to {
-    transform: rotate(4deg);
-  }
-}
-
 .page-dialog__actions {
   padding: 8px 8px 8px 24px;
   display: flex;
@@ -168,5 +160,17 @@ dialog {
 .sort-pages-item {
   flex: 0 0 20%;
   max-width: 20%;
+}
+h3 {
+  margin-bottom: 0;
+}
+.page-heading {
+
+}
+.pointer {
+  cursor: pointer;
+}
+.mdc-layout-grid {
+  padding-top: 0;
 }
 </style>
