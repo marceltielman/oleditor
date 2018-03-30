@@ -18,9 +18,9 @@
       </mdc-layout-grid>
       <mdc-layout-grid v-for="(page, pageIndex) in projectPages" :key="page.id" >
         <mdc-layout-cell span=12 v-show="page.children.length">
-          <h3 @click="onSelectPage(page)" class="page-heading pointer">
+          <mdc-title @click="onSelectPage(page)" class="pointer">
             <svgicon icon="system/elements/page" width="24" height="24" color="#2b6a73"></svgicon> Pagina {{ pageIndex + 1 }}
-          </h3>
+          </mdc-title>
           <mdc-layout-inner-grid  v-for="(element, elementIndex) in page.children" :key="element.id">
             <mdc-layout-cell span=4 align="middle">
               <mdc-textfield :value="element.body.link" dense label="Url" @input="updateUrl({elId: element.id, pageId: page.id, link: $event.target.value} )" />
@@ -114,7 +114,7 @@ export default {
 
 <style scoped>
 dialog {
-  width: 50vw !important;
+  width: 55vw !important;
   border: none !important;
   box-shadow:
     0 9px 46px 8px rgba(0,0,0,.14),

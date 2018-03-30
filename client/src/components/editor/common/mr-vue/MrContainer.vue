@@ -315,6 +315,7 @@ export default {
 .mr-container {
   position: relative;
   outline: none;
+  background-repeat: no-repeat;
 }
 
 .selection-area {

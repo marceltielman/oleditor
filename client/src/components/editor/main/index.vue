@@ -1,5 +1,5 @@
 <template>
-  <div class="mainegg">
+  <div class="mainegg" :class="'page-alignment-' + selectedPage.alignment">
     <stage-action :selectedElements="selectedElement" v-if="selectedElement.length === 1"></stage-action>
     <stage v-if="selectedPage" :page="selectedPage"></stage>
   </div>

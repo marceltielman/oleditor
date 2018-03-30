@@ -28,7 +28,7 @@
     </mdc-button>
 
     <mdc-menu-anchor>
-      <mdc-button v-tooltip="'Open...'" class="action-btn" :disabled="isLoading" @click="showLoadFromMenu" dense>
+      <mdc-button v-show="false" v-tooltip="'Open...'" class="action-btn" :disabled="isLoading" @click="showLoadFromMenu" dense>
         <svgicon icon="system/actions/folder" width="24" height="24" color="#2b6a73"></svgicon>
       </mdc-button>
       <mdc-menu ref="loadFromMenu" @select="onSelectLoadFrom">
@@ -43,7 +43,7 @@
     </mdc-menu-anchor>
 
     <mdc-menu-anchor>
-      <mdc-button v-tooltip="'Download...'" class="action-btn" :disabled="isLoading" @click="showDownloadMenu" dense>
+      <mdc-button v-show="false" v-tooltip="'Download...'" class="action-btn" :disabled="isLoading" @click="showDownloadMenu" dense>
         <svgicon icon="system/actions/download" width="24" height="24" color="#2b6a73"></svgicon>
       </mdc-button>
       <mdc-menu ref="downloadMenu" @select="onSelectDownload">
@@ -54,7 +54,7 @@
       </mdc-menu>
     </mdc-menu-anchor>
 
-    <mdc-button v-tooltip="saveBtnTitle" class="action-btn" @click="$root.$emit('open-upload-dialog')"
+    <mdc-button v-show="false" v-tooltip="saveBtnTitle" class="action-btn" @click="$root.$emit('open-upload-dialog')"
       :disabled="!isLoggedIn || !hasChanges || (isLoggedIn && isLoading)" dense
     >
       <svgicon icon="system/actions/cloud_off" v-if="!isLoggedIn"
