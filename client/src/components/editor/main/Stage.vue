@@ -65,7 +65,16 @@ export default {
       projectComponents: state => state.project.components
     })
   },
+  mounted: function () {
+    this.$nextTick(function () {
+      window.addEventListener('resize', this.getWindowDimension)
+    })
+  },
   methods: {
+    getWindowDimension () {
+      // alert(document.documentElement.clientWidth)
+      // this.page.width = document.documentElement.clientWidth
+    },
     clearSelectionHandler () {
       if (this.selectedElements.length > 0) this._clearSelectedElements()
     },

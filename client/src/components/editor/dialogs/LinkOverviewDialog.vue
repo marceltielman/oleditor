@@ -66,7 +66,7 @@ export default {
   },
   computed: {
     dialogTitle () {
-      return 'Link overzicht'
+      return 'Linkoverzicht'
     },
 
     ...mapState({
@@ -88,10 +88,10 @@ export default {
       this.removeElement({ page: page, elId: elId })
     },
     updateUrl: _.debounce(function (payload) {
-      this.updateLinkOverviewElement({data: payload, type: 'link'})
+      this.updateLinkOverviewElement({data: payload, field: 'link'})
     }, 500),
     updateTitle: _.debounce(function (payload) {
-      this.updateLinkOverviewElement({data: payload, type: 'title'})
+      this.updateLinkOverviewElement({data: payload, field: 'title'})
     }, 500),
 
     ...mapActions([removeElement, updateLinkOverviewElement]),

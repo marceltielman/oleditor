@@ -238,24 +238,26 @@ const elementActions = {
     }
   },
 /**
-  * Updates the link element identified by payload.elId with the payload values
+  * Updates the link element identified by payload.field with the payload values
   *
   * @param {string} payload.pageId : Id of the page where the element reside
   * @param {string} payload.link : Link of the element to be updated
+  * @param {string} payload.title: Title of the element to be updated
+  * @param {string} payload.field: Field of the element to be updated
   *
   * @see {@link [types.updateEgglement]}
   */
   [types.updateLinkOverviewElement]: function ({ getters, commit }, payload) {
     let page = getters.getPageById(payload.data.pageId)
     let egglement = getChildNode(page, payload.data.elId)
-    if (payload.type === 'link') {
+    if (payload.field === 'link') {
       if (payload.data.link !== egglement.link) {
         commit(types.updateEgglement, {
           egglement,
           link: (egglement.link !== payload.data.link) ? payload.data.link : egglement.link
         })
       }
-    } else if (payload.type === 'title') {
+    } else if (payload.field === 'title') {
       if (payload.data.title !== egglement.title) {
         commit(types.updateEgglement, {
           egglement,
